@@ -10,7 +10,7 @@ source env_t2f/bin/activate
 pip install -r requirements.txt
 ```
 
-### Extract Sentence Feats for a list of sentences
+## Extract Sentence Feats for a list of sentences
 ```
 python text2feat.py --output-dir output --input-path data/sentences.txt --input-type list
 ```
