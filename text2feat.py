@@ -59,6 +59,7 @@ if __name__ == '__main__':
     # embeddings = get_sentence_encodings(sents, 'output')
     # print(embeddings.shape) # (2, 512)
 
+    # python text2feat.py --output-dir msrvtt_caption_feats_universal --input-path ../datasets/MSRVTT/train_val_annotation/train_val_videodatainfo.json
     # extract embeddings for msrvtt captions    
     parser = argparse.ArgumentParser()
     parser.add_argument('--output-dir', default = 'output', help = 'output directory')
