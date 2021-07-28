@@ -54,28 +54,42 @@ def get_msrvtt_captions(annotations_path):
     return sents
 
 if __name__ == '__main__':
-    # simple example
-    # sents = ['this is a test sentence!', 'this is another test sentence!']
-    # embeddings = get_sentence_encodings(sents, 'output')
-    # print(embeddings.shape) # (2, 512)
-
-    # python text2feat.py --output-dir msrvtt_caption_feats_universal --input-path ../datasets/MSRVTT/train_val_annotation/train_val_videodatainfo.json
-    # extract embeddings for msrvtt captions    
     parser = argparse.ArgumentParser()
     parser.add_argument('--output-dir', default = 'output', help = 'output directory')
     parser.add_argument('--input-path', 
                         default = '../datasets/MSRVTT/train_val_annotation/train_val_videodatainfo.json', 
                         help = 'dataset annotations file contatining sentences. example: msrvtt')
+    parser.add_argument('--input-type', 
+                        default = 'json', # 'list' 
+                        help = 'the input may be a list of sentences or a json annotation file as in video-text dataset such as MSRVTT')
     args = parser.parse_args()
     
-    # load captions from msrvtt
-    captions = get_msrvtt_captions(args.input_path)
-    
-    # create output dir
-    utils.create_dir_if_not_exist(args.output_dir)
-    
-    # obtain embeddings and store the output dir
-    embeddings = get_sentence_encodings(captions, 
-                                        args.output_dir, 
-                                        model_name='universal-sentence-encoder', 
-                                        split_output=False)
+    # python text2feat.py --output-dir msrvtt_caption_feats_universal --input-path ../datasets/MSRVTT/train_val_annotation/train_val_videodatainfo.json --input-type json
+    # extract embeddings for msrvtt captions    
+    if args.input_type == 'json':
+        # load captions from msrvtt
+        captions = get_msrvtt_captions(args.input_path)
+        
+        # create output dir
+        utils.create_dir_if_not_exist(args.output_dir)
+        
+        # obtain embeddings and store the output dir
+        embeddings = get_sentence_encodings(captions, 
+                                            args.output_dir, 
+                                            model_name='universal-sentence-encoder', 
+                                            split_output=False)
+
+
+    # python text2feat.py --output-dir output --input-path data/sentences.txt --input-type list
+    if args.input_type == 'list':
+        # load sentences from file
+        captions = utils.load_textfile(args.input_path)
+        
+        # create output dir
+        utils.create_dir_if_not_exist(args.output_dir)
+
+        # obtain embeddings and store the output dir
+        embeddings = get_sentence_encodings(captions,
+                 args.output_dir,
+                 model_name='universal-sentence-encoder',                           
+                 split_output=False)
