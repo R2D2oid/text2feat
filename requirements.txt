@@ -1,3 +1,4 @@
+tensorflow
 sister
 matplotlib
 tensorflow-gpu
