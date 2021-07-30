@@ -19,3 +19,15 @@ python text2feat.py --output-dir output --input-path data/sentences.txt --input-
 ```
 python text2feat.py --output-dir msrvtt_caption_feats_universal --input-path ../datasets/MSRVTT/train_val_annotation/train_val_videodatainfo.json --input-type json
 ```
+
+
+### Other commands for MSRVTT
+```
+python text2feat.py --output-dir msrvtt_caption_feats_universal_train --input-path ../datasets/MSRVTT/train_val_annotation/train_val_videodatainfo.json --input-type json
+
+cp msrvtt_caption_feats_universal_trainval/msrvtt_captions_universal_trainval.pkl ../datasets/MSRVTT/feats/text/msrvtt_captions_universal_train.pkl
+
+python text2feat.py --output-dir msrvtt_caption_feats_universal_test --input-path ../datasets/MSRVTT/test_videodatainfo/test_videodatainfo.json --input-type json
+
+cp msrvtt_caption_feats_universal_test/msrvtt_captions_universal_test.pkl ../datasets/MSRVTT/feats/text/msrvtt_captions_universal_test.pkl
+```
