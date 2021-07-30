@@ -1,4 +1,5 @@
 import argparse
+import numpy as np
 import utilities as utils
 
 def load_model(model_name='universal-sentence-encoder'):
@@ -31,12 +32,14 @@ def get_sentence_encodings(sents, output_dir, model_name='universal-sentence-enc
             sentence_encoding_batch = model(sents[i:i+chunk_size])
             # embeddings.extend(sentence_encoding_batch)
             
+            sentence_encoding_batch = np.asarray(sentence_encoding_batch)
+
             # write output
             path_ = f'{output_dir}/sentence_encoding_batch_{int(i/chunk_size)}.pkl'
             utils.dump_picklefile(sentence_encoding_batch, path_)
     else:
         embeddings = model(sents)
-        
+        embeddings = np.asarray(embeddings)
         # write output
         path_ = f'{output_dir}/sentence_encoding_all.pkl'
         utils.dump_picklefile(embeddings, path_)
